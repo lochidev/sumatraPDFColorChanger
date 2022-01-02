@@ -19,7 +19,11 @@ namespace sumatraPDFColorChanger
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string currentSettings = File.ReadAllText(_filePath);
+            int indexOfState = currentSettings.IndexOf("FileStates");
             string? configText = File.ReadAllText($"configs//{_currentConfig}");
+            configText = configText.Remove(configText.IndexOf("FileStates"));
+            configText += currentSettings[indexOfState..];
             File.WriteAllText(_filePath, configText);
         }
 
